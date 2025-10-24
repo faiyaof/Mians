@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>简历上传 - 完成最后一步</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: #f8fafc;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .main-container {
+            display: flex;
+            max-width: 1200px;
+            width: 100%;
+            gap: 60px;
+            align-items: center;
+        }
+
+        /* 左侧信息区域 */
+        .left-section {
+            flex: 1;
+            max-width: 500px;
+        }
+
+        .title {
+            font-size: 48px;
+            font-weight: 700;
+            color: #1e293b;
+            line-height: 1.1;
+            margin-bottom: 24px;
+        }
+
+        .description {
+            font-size: 18px;
+            color: #64748b;
+            line-height: 1.6;
+            margin-bottom: 40px;
+        }
+
+        .step-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: #1e293b;
+            color: white;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: 600;
+            border: 2px solid white;
+            box-shadow: 0 4px 12px rgba(30, 41, 59, 0.2);
+        }
+
+        .illustration {
+            margin-top: 60px;
+            position: relative;
+            height: 300px;
+            width: 100%;
+        }
+
+        .cat {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            width: 100px;
+            height: 80px;
+            background-color: #3b82f6;
+            border-radius: 50px 50px 20px 20px;
+            z-index: 3;
+        }
+
+        /* 猫咪身体上的白色斑点 */
+        .cat::before {
+            content: '';
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            width: 12px;
+            height: 12px;
+            background-color: white;
+            border-radius: 50%;
+        }
+
+        .cat::after {
+            content: '';
+            position: absolute;
+            top: 25px;
+            right: 20px;
+            width: 10px;
+            height: 10px;
+            background-color: white;
+            border-radius: 50%;
+        }
+
+        /* 猫咪尾巴上的白色斑点 */
+        .cat-tail {
+            position: absolute;
+            top: 10px;
+            right: -15px;
+            width: 20px;
+            height: 30px;
+            background-color: #3b82f6;
+            border-radius: 10px;
+            transform: rotate(45deg);
+        }
+
+        .cat-tail::before {
+            content: '';
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            width: 8px;
+            height: 8px;
+            background-color: white;
+            border-radius: 50%;
+        }
+
+        /* 猫咪眼睛 */
+        .cat-eye {
+            position: absolute;
+            top: 20px;
+            left: 25px;
+            width: 8px;
+            height: 8px;
+            background-color: white;
+            border-radius: 50%;
+            border: 2px solid #1e293b;
+        }
+
+        .cat-eye::before {
+            content: '';
+            position: absolute;
+            top: 1px;
+            left: 1px;
+            width: 4px;
+            height: 4px;
+            background-color: #1e293b;
+            border-radius: 50%;
+        }
+
+        /* 猫咪胡须 */
+        .cat-whiskers {
+            position: absolute;
+            top: 30px;
+            left: 10px;
+            width: 30px;
+            height: 2px;
+            background-color: #1e293b;
+            border-radius: 1px;
+        }
+
+        .cat-whiskers::before {
+            content: '';
+            position: absolute;
+            top: 5px;
+            left: 0;
+            width: 25px;
+            height: 2px;
+            background-color: #1e293b;
+            border-radius: 1px;
+        }
+
+        .phone {
+            position: absolute;
+            bottom: 40px;
+            left: 100px;
+            width: 60px;
+            height: 100px;
+            background-color: white;
+            border-radius: 12px;
+            border: 3px solid #3b82f6;
+            z-index: 2;
+        }
+
+        .phone::before {
+            content: '';
+            position: absolute;
+            top: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 30px;
+            height: 40px;
+            background-color: #f8fafc;
+            border-radius: 6px;
+        }
+
+        .speech-bubble-1 {
+            position: absolute;
+            top: 20px;
+            left: 140px;
+            width: 50px;
+            height: 35px;
+            background-color: white;
+            border-radius: 15px;
+            z-index: 4;
+            border: 2px solid #e2e8f0;
+        }
+
+        .speech-bubble-1::before {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 15px;
+            width: 0;
+            height: 0;
+            border-left: 6px solid transparent;
+            border-right: 6px solid transparent;
+            border-top: 6px solid white;
+        }
+
+        /* 白色气泡中的空心圆点 */
+        .speech-bubble-1 .dots {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 20px;
+            height: 4px;
+        }
+
+        .speech-bubble-1 .dots::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 4px;
+            height: 4px;
+            border: 1px solid #64748b;
+            border-radius: 50%;
+            background-color: transparent;
+        }
+
+        .speech-bubble-1 .dots::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: 4px;
+            height: 4px;
+            border: 1px solid #64748b;
+            border-radius: 50%;
+            background-color: transparent;
+        }
+
+        .speech-bubble-2 {
+            position: absolute;
+            top: 60px;
+            left: 160px;
+            width: 40px;
+            height: 30px;
+            background-color: #374151;
+            border-radius: 12px;
+            z-index: 4;
+        }
+
+        .speech-bubble-2::before {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 12px;
+            width: 0;
+            height: 0;
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            border-top: 5px solid #374151;
+        }
+
+        /* 深灰色气泡中的实心白点 */
+        .speech-bubble-2 .dots {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 20px;
+            height: 4px;
+        }
+
+        .speech-bubble-2 .dots::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 4px;
+            height: 4px;
+            background-color: white;
+            border-radius: 50%;
+        }
+
+        .speech-bubble-2 .dots::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: 4px;
+            height: 4px;
+            background-color: white;
+            border-radius: 50%;
+        }
+
+        .leaf {
+            position: absolute;
+            top: 0;
+            right: 20px;
+            width: 80px;
+            height: 120px;
+            background-color: #e5e7eb;
+            border-radius: 40px 0 40px 0;
+            z-index: 1;
+            opacity: 0.9;
+        }
+
+        /* 叶子的纹理线条 */
+        .leaf::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 80px;
+            background-color: #9ca3af;
+            border-radius: 1px;
+        }
+
+        .leaf::after {
+            content: '';
+            position: absolute;
+            top: 30px;
+            left: 30%;
+            width: 1px;
+            height: 60px;
+            background-color: #9ca3af;
+            border-radius: 1px;
+            transform: rotate(15deg);
+        }
+
+        /* 右侧上传区域 */
+        .right-section {
+            flex: 1;
+            max-width: 500px;
+        }
+
+        .upload-card {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e2e8f0;
+        }
+
+        .upload-header {
+            font-size: 24px;
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 32px;
+        }
+
+        .upload-area {
+            border: 2px dashed #3b82f6;
+            border-radius: 16px;
+            padding: 60px 20px;
+            text-align: center;
+            background-color: #f0f9ff;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 32px;
+            position: relative;
+        }
+
+        .upload-area:hover {
+            background-color: #e0f2fe;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.15);
+        }
+
+        .upload-area.dragover {
+            background-color: #dbeafe;
+            transform: scale(1.02);
+        }
+
+        .cloud-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 24px;
+            color: #3b82f6;
+        }
+
+        .upload-text {
+            color: #64748b;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+
+        .file-input {
+            display: none;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 40px;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 16px 24px;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary {
+            background-color: #e0f2fe;
+            color: #0369a1;
+        }
+
+        .btn-secondary:hover {
+            background-color: #bae6fd;
+            transform: translateY(-1px);
+        }
+
+        .btn-primary {
+            background-color: #3b82f6;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #2563eb;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+        }
+
+        .btn-primary:active {
+            transform: translateY(0);
+        }
+
+        /* 进度指示器 */
+        .progress-indicator {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+        }
+
+        .progress-step {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 600;
+            position: relative;
+        }
+
+        .progress-step.completed {
+            background-color: #3b82f6;
+            color: white;
+        }
+
+        .progress-step.current {
+            background-color: #e2e8f0;
+            color: #64748b;
+            border: 2px solid #3b82f6;
+        }
+
+        .progress-line {
+            width: 40px;
+            height: 2px;
+            background-color: #e2e8f0;
+        }
+
+        .progress-line.completed {
+            background-color: #3b82f6;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 1024px) {
+            .main-container {
+                flex-direction: column;
+                gap: 40px;
+                max-width: 600px;
+            }
+
+            .left-section,
+            .right-section {
+                max-width: 100%;
+            }
+
+            .title {
+                font-size: 36px;
+            }
+
+            .illustration {
+                height: 200px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .main-container {
+                padding: 0 20px;
+            }
+
+            .title {
+                font-size: 28px;
+            }
+
+            .description {
+                font-size: 16px;
+            }
+
+            .upload-card {
+                padding: 24px;
+            }
+
+            .upload-header {
+                font-size: 20px;
+            }
+
+            .upload-area {
+                padding: 40px 15px;
+            }
+
+            .cloud-icon {
+                width: 60px;
+                height: 60px;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+
+            .illustration {
+                display: none;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+
+            .upload-card {
+                padding: 20px;
+            }
+
+            .upload-area {
+                padding: 30px 10px;
+            }
+
+            .upload-text {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <!-- 左侧信息区域 -->
+        <div class="left-section">
+            <h1 class="title">完成！上传您的简历</h1>
+            <p class="description">上传您的简历，平台将帮助您解析和优化，您可以跳过此步骤。</p>
+            <div class="step-badge">1</div>
+            
+            <div class="illustration">
+                <div class="cat">
+                    <div class="cat-tail"></div>
+                    <div class="cat-eye"></div>
+                    <div class="cat-whiskers"></div>
+                </div>
+                <div class="phone"></div>
+                <div class="speech-bubble-1">
+                    <div class="dots"></div>
+                </div>
+                <div class="speech-bubble-2">
+                    <div class="dots"></div>
+                </div>
+                <div class="leaf"></div>
+            </div>
+        </div>
+
+        <!-- 右侧上传区域 -->
+        <div class="right-section">
+            <div class="upload-card">
+                <h2 class="upload-header">上传文件</h2>
+                
+                <div class="upload-area" id="uploadArea">
+                    <svg class="cloud-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                              d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+                    </svg>
+                    <div class="upload-text">
+                        将您的简历文件拖拽到此区域，或点击该区域选择相应的文件进行上传。
+                    </div>
+                </div>
+                
+                <input type="file" id="fileInput" class="file-input" 
+                       accept=".pdf,.doc,.docx,.txt">
+                
+                <div class="button-group">
+                    <button class="btn btn-secondary">上一步</button>
+                    <button class="btn btn-primary" id="finishBtn">完成</button>
+                </div>
+                
+                <div class="progress-indicator">
+                    <div class="progress-step completed">
+                        <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                        </svg>
+                    </div>
+                    <div class="progress-line completed"></div>
+                    <div class="progress-step completed">
+                        <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                        </svg>
+                    </div>
+                    <div class="progress-line completed"></div>
+                    <div class="progress-step completed">
+                        <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                        </svg>
+                    </div>
+                    <div class="progress-line"></div>
+                    <div class="progress-step current">4</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        class ResumeUploader {
+            constructor() {
+                this.uploadArea = document.getElementById('uploadArea');
+                this.fileInput = document.getElementById('fileInput');
+                this.finishBtn = document.getElementById('finishBtn');
+                this.selectedFile = null;
+                
+                this.initEventListeners();
+            }
+
+            initEventListeners() {
+                // 点击上传区域
+                this.uploadArea.addEventListener('click', () => {
+                    this.fileInput.click();
+                });
+
+                // 文件选择
+                this.fileInput.addEventListener('change', (e) => {
+                    this.handleFile(e.target.files[0]);
+                });
+
+                // 拖拽事件
+                this.uploadArea.addEventListener('dragover', (e) => {
+                    e.preventDefault();
+                    this.uploadArea.classList.add('dragover');
+                });
+
+                this.uploadArea.addEventListener('dragleave', (e) => {
+                    e.preventDefault();
+                    this.uploadArea.classList.remove('dragover');
+                });
+
+                this.uploadArea.addEventListener('drop', (e) => {
+                    e.preventDefault();
+                    this.uploadArea.classList.remove('dragover');
+                    this.handleFile(e.dataTransfer.files[0]);
+                });
+
+                // 完成按钮
+                this.finishBtn.addEventListener('click', () => {
+                    this.handleFinish();
+                });
+            }
+
+            handleFile(file) {
+                if (!file) return;
+
+                if (this.validateFile(file)) {
+                    this.selectedFile = file;
+                    this.updateUploadArea(file);
+                    this.updateFinishButton();
+                }
+            }
+
+            validateFile(file) {
+                const allowedTypes = [
+                    'application/pdf',
+                    'application/msword', 
+                    'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+                    'text/plain'
+                ];
+                
+                const maxSize = 5 * 1024 * 1024; // 5MB
+
+                if (!allowedTypes.includes(file.type)) {
+                    alert('请上传PDF、DOC、DOCX或TXT格式的简历文件');
+                    return false;
+                }
+
+                if (file.size > maxSize) {
+                    alert('文件大小不能超过5MB');
+                    return false;
+                }
+
+                return true;
+            }
+
+            updateUploadArea(file) {
+                const uploadText = this.uploadArea.querySelector('.upload-text');
+                uploadText.innerHTML = `
+                    <div style="color: #059669; font-weight: 600; margin-bottom: 8px;">
+                        ✓ 文件已选择
+                    </div>
+                    <div style="color: #374151; font-size: 14px;">
+                        ${file.name}
+                    </div>
+                    <div style="color: #6b7280; font-size: 12px; margin-top: 4px;">
+                        ${this.formatFileSize(file.size)}
+                    </div>
+                `;
+                
+                // 更新图标
+                const cloudIcon = this.uploadArea.querySelector('.cloud-icon');
+                cloudIcon.innerHTML = `
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" style="color: #059669;">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                              d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                `;
+            }
+
+            updateFinishButton() {
+                this.finishBtn.style.backgroundColor = '#059669';
+                this.finishBtn.textContent = '完成上传';
+            }
+
+            handleFinish() {
+                if (!this.selectedFile) {
+                    alert('请先选择一个文件');
+                    return;
+                }
+
+                // 模拟上传过程
+                this.finishBtn.textContent = '上传中...';
+                this.finishBtn.disabled = true;
+
+                setTimeout(() => {
+                    alert('简历上传成功！');
+                    this.finishBtn.textContent = '上传完成';
+                    this.finishBtn.style.backgroundColor = '#10b981';
+                    
+                    // 更新进度指示器
+                    this.updateProgressIndicator();
+                }, 2000);
+            }
+
+            updateProgressIndicator() {
+                const currentStep = document.querySelector('.progress-step.current');
+                const progressLine = document.querySelector('.progress-line:last-child');
+                
+                if (currentStep) {
+                    currentStep.classList.remove('current');
+                    currentStep.classList.add('completed');
+                    currentStep.innerHTML = `
+                        <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                        </svg>
+                    `;
+                }
+                
+                if (progressLine) {
+                    progressLine.classList.add('completed');
+                }
+            }
+
+            formatFileSize(bytes) {
+                if (bytes === 0) return '0 Bytes';
+                const k = 1024;
+                const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+                const i = Math.floor(Math.log(bytes) / Math.log(k));
+                return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+            }
+        }
+
+        // 初始化简历上传器
+        const resumeUploader = new ResumeUploader();
+    </script>
+</body>
+</html>
